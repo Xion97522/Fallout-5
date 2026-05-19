@@ -1,2 +1,3 @@
 # Fallout-5
-Idk
+Bethesda Won't Make Fallout 5...
+I HAD NO CHOICE BUT TO MAKE IT, ITS GONNA BE ON ANDROID!!!!
