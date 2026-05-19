@@ -1,7 +1,7 @@
 # Fallout-5
 
 Bethesda Won't Make Fallout 5...
-I HAD NO CHOICE BUT TO MAKE IT, ITS GONNA BE ON ANDROID!!!!
+
 
 This repository is also set up for GitHub Pages using the `docs/` folder.
 
