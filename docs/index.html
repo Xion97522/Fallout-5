@@ -335,13 +335,11 @@ input[type=range].opts-sl::-moz-range-thumb{width:13px;height:13px;background:#0
 .npc-tag{position:absolute;background:rgba(0,0,0,.7);border:1px solid #00cc33;color:#00ff41;font-size:8px;letter-spacing:1px;padding:2px 6px;pointer-events:none;font-family:'Share Tech Mono',monospace;white-space:nowrap}
 </style></head><body>
 <canvas id="c"></canvas>
-<div id="standby"><video src="https://fallout5-k2rjnpof.manus.space/manus-storage/standby_8428d434.mp4" autoplay muted playsinline id="sbvid"></video><div id="standby-skip">[ CLICK TO SKIP ]</div></div>
+<div id="standby"><video id="sbvid" autoplay muted playsinline></video><div id="standby-skip">[ CLICK TO SKIP ]</div></div>
 <div id="loading-overlay" style="display:none"></div>
 
 <!-- Audio element for theme music -->
-<audio id="themeAudio" loop preload="auto" >
-  <source src="https://fallout5-k2rjnpof.manus.space/manus-storage/theme_8bf129fc.mp3" type="audio/mpeg">
-</audio>
+<audio id="themeAudio" loop preload="auto"></audio>
 
 <div id="audctl">
   <button id="audtog">♪ TOGGLE MUSIC</button>
@@ -350,14 +348,14 @@ input[type=range].opts-sl::-moz-range-thumb{width:13px;height:13px;background:#0
 
 <div id="menu">
   <div id="menu-bg-wrap">
-    <div class="menu-bg-slide" style="background-image:url('https://fallout5-k2rjnpof.manus.space/manus-storage/menu_bg_3002a630.gif')"></div>
+    <div class="menu-bg-slide" style="background-image:url('./bg1.gif')"></div>
     <div class="menu-bg-slide" style="background-image:url('./bg1.gif')"></div>
     <div class="menu-bg-slide" style="background-image:url('./bg2.gif')"></div>
     <div class="menu-bg-slide" style="background-image:url('./bg3.gif')"></div>
   </div>
   <div id="menu-overlay"></div>
   <div class="scl"></div>
-  <img class="logo" src="https://i.ibb.co/60n8NJKp/f36558f7f8a63101d294017b8c3461bd.png" alt="Vault 555">
+  <div class="logo">VAULT 555</div>
   <div class="sub">VAULT 555</div>
   <button class="mbtn" id="bcont" style="display:none">[ CONTINUE ]</button>
   <button class="mbtn" id="bplay">[ NEW GAME ]</button>
@@ -703,18 +701,7 @@ const isMobile=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
 let mobileActive=false;
 
 // ── CDN Texture URL Map for FBX NPC models ──
-const _cdnTexMap={
-  'rp_sophia_animated_003_dif.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_sophia_animated_003_dif_4ada2b6e.webp',
-  'rp_sophia_animated_003_norm.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_sophia_animated_003_norm_57c0be8c.webp',
-  'rp_sophia_animated_003_gloss.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_sophia_animated_003_gloss_f7404217.webp',
-  'rp_sophia_animated_003_mask01.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_sophia_animated_003_mask01_9bdad9dc.webp',
-  'rp_sophia_animated_003_mask02.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_sophia_animated_003_mask02_9193d9a5.webp',
-  'rp_nathan_animated_003_dif.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_nathan_animated_003_dif_676cdfed.webp',
-  'rp_nathan_animated_003_norm.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_nathan_animated_003_norm_4f1ae18d.webp',
-  'rp_nathan_animated_003_gloss.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_nathan_animated_003_gloss_50a436a0.webp',
-  'rp_nathan_animated_003_mask01.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_nathan_animated_003_mask01_d6a69194.webp',
-  'rp_nathan_animated_003_mask02.webp':'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_nathan_animated_003_mask02_a962c612.webp',
-};
+const _cdnTexMap={};
 // Patch THREE.LoadingManager to redirect FBX texture URLs to CDN
 if(typeof THREE!=='undefined'){
   const _origLoad=THREE.TextureLoader.prototype.load;
@@ -757,19 +744,10 @@ function preloadModels(){
     modelsReady=true;_ldReady=true;_ldFinish();return;
   }
   const entries=[
-    {key:'ghoul', objUrl:'./bloatfly/Bloatfly/Bloatfly.obj', mtlUrl:'./bloatfly/Bloatfly/Bloatfly.mtl', resPath:'./bloatfly/Bloatfly/', scale:0.007, yOff:0.5, label:'Combat Mutants'},
-    {key:'robot', objUrl:'./eyebot/Eyebot/Eyebot.obj',       mtlUrl:'./eyebot/Eyebot/Eyebot.mtl',       resPath:'./eyebot/Eyebot/',       scale:0.007, yOff:0.7, label:'Eyebot Drones'},
-    {key:'stim',  objUrl:'./stimpack/stimpack.obj',           mtlUrl:'./stimpack/stimpack.mtl',           resPath:'./stimpack/',             scale:0.004, yOff:0,   label:'Medical Supplies'},
-    {key:'rad',   objUrl:'./radaway/radaway1.obj',            mtlUrl:'./radaway/radaway1.mtl',            resPath:'./radaway/',              scale:0.004, yOff:0,   label:'RadAway'},
+    {key:'stim', objUrl:'./stimpack/stimpack.obj', mtlUrl:'./stimpack/stimpack.mtl', resPath:'./stimpack/', scale:0.004, yOff:0, label:'Medical Supplies'},
+    {key:'rad',  objUrl:'./radaway/radaway1.obj', mtlUrl:'./radaway/radaway1.mtl', resPath:'./radaway/', scale:0.004, yOff:0, label:'RadAway'},
   ];
-  const hasGLTF=typeof THREE.GLTFLoader!=='undefined';
-  const hasFBX=typeof THREE.FBXLoader!=='undefined';
-  // Register all slots
   entries.forEach(()=>_ldRegister());
-  if(hasGLTF)_ldRegister();
-  if(hasFBX){_ldRegister();_ldRegister();} // Sophie + Nathan
-
-  // OBJ+MTL models
   entries.forEach(({key,objUrl,mtlUrl,resPath,scale,yOff,label})=>{
     const mtl=new THREE.MTLLoader();
     mtl.setResourcePath(resPath);
@@ -784,34 +762,6 @@ function preloadModels(){
       },null,fail);
     },null,fail);
   });
-
-  // GLB: ammo crate
-  if(hasGLTF){
-    new THREE.GLTFLoader().load('https://fallout5-k2rjnpof.manus.space/manus-storage/ammo_crate_94f4f914.glb',gltf=>{
-      const o=gltf.scene;
-      o.traverse(c=>{if(c.isMesh){c.castShadow=true;c.receiveShadow=true;}});
-      MODEL['ammo']={obj:o,scale:0.6,yOff:0};
-      _ldTick('Ammo Crates');
-    },null,()=>_ldTick('Ammo Crates'));
-  }
-
-  // FBX: NPC models pre-loaded before game start
-  if(hasFBX){
-    const npcList=[
-      {mk:'maya_fbx', fbx:'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_sophia_animated_003_idling_ue4_377af9f2.fbx', tex:'./models/sophie/tex/', label:'Settler: Maya'},
-      {mk:'roark_fbx',fbx:'https://fallout5-k2rjnpof.manus.space/manus-storage/rp_nathan_animated_003_walking_ue4_d7c4b07b.fbx',tex:'./models/nathan/tex/',label:'Settler: Roark'},
-    ];
-    npcList.forEach(({mk,fbx,tex,label})=>{
-      const ldr=new THREE.FBXLoader();
-      ldr.setResourcePath(tex);
-      ldr.load(fbx,obj=>{
-        obj.scale.setScalar(0.012);
-        obj.traverse(c=>{if(c.isMesh){c.castShadow=true;c.receiveShadow=true;if(c.material){if(Array.isArray(c.material))c.material.forEach(m=>m.roughness=0.7);else c.material.roughness=0.7;}}});
-        MODEL[mk]={obj};
-        _ldTick(label);
-      },undefined,()=>_ldTick(label));
-    });
-  }
 }
 
 // ═══════════════════════════════════════════════════════
